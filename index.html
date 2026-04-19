@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBC Burger Championship</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Figtree', 'Pretendard', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ── Header ── */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 200;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 40px;
+        }
+
+        .logo img {
+            height: 26px;
+            display: block;
+        }
+
+        .logo-text {
+            font-family: 'Figtree', sans-serif;
+            font-size: 27px;
+            font-weight: 800;
+            color: #1a1a1a;
+            letter-spacing: -0.5px;
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+        }
+
+        nav a {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: opacity 0.2s ease;
+        }
+
+        nav a:hover {
+            opacity: 0.5;
+        }
+
+        /* ── Slide Wrapper ── */
+        #slide-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ── Individual Slides ── */
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            will-change: transform;
+        }
+
+        .slide-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .slide-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.45);
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 40px;
+        }
+
+        /* ── Slide 1 — Title ── */
+        .slide-1-eyebrow {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 20px;
+        }
+
+        .slide-1-title {
+            font-family: 'Figtree', sans-serif;
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1.0;
+            letter-spacing: -2px;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .slide-1-subtitle {
+            font-family: 'Figtree', sans-serif;
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1.0;
+            letter-spacing: -2px;
+            color: #fff;
+            margin-bottom: 32px;
+        }
+
+        .slide-1-desc {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 1px;
+            line-height: 1.6;
+        }
+
+        .slide-1-sponsor {
+            position: absolute;
+            bottom: 98px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 27px;
+            z-index: 2;
+        }
+
+        .slide-1-sponsor-logo {
+            height: 100px;
+            width: auto;
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
+        }
+
+        .slide-1-sponsor-label {
+            font-family: 'Figtree', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* ── Slide 2 placeholder ── */
+        .slide-placeholder-label {
+            font-family: 'Figtree', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+        }
+
+        /* ── Slide 2 — Story ── */
+        .slide-2-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 66.666%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .slide-2-fade {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 75%;
+            height: 100%;
+            background: linear-gradient(to right, #000 40%, transparent 100%);
+            z-index: 1;
+        }
+
+        .slide-2-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 60px;
+        }
+
+        .slide-2-text {
+            max-width: 480px;
+        }
+
+        .slide-2-eyebrow {
+            font-family: 'Figtree', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+            margin-bottom: 20px;
+        }
+
+        .slide-2-heading {
+            font-family: 'Figtree', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.5px;
+            color: #fff;
+            margin-bottom: 24px;
+        }
+
+        .slide-2-body {
+            font-family: 'Figtree', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.75);
+        }
+
+        /* ── Slide 3 — Sponsor ── */
+        .slide-3-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 66.666%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .slide-3-fade {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 75%;
+            height: 100%;
+            background: linear-gradient(to left, #000 40%, transparent 100%);
+            z-index: 1;
+        }
+
+        .slide-3-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 60px;
+        }
+
+        .slide-3-text {
+            max-width: 480px;
+            text-align: left;
+        }
+
+        .slide-3-logo {
+            height: 22px;
+            width: auto;
+            margin-bottom: 24px;
+            filter: brightness(0) invert(1);
+            opacity: 0.85;
+            display: block;
+        }
+
+        .slide-3-eyebrow {
+            font-family: 'Figtree', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+            margin-bottom: 20px;
+        }
+
+        .slide-3-heading {
+            font-family: 'Figtree', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.5px;
+            color: #fff;
+            margin-bottom: 24px;
+        }
+
+        .slide-3-body {
+            font-family: 'Figtree', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.75);
+        }
+
+        /* ── Slide 4 — Tournament Format ── */
+        .slide-4-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 66.666%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .slide-4-fade {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 75%;
+            height: 100%;
+            background: linear-gradient(to right, #000 40%, transparent 100%);
+            z-index: 1;
+        }
+
+        .slide-4-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 60px;
+        }
+
+        .slide-4-text {
+            max-width: 480px;
+        }
+
+        .slide-4-eyebrow {
+            font-family: 'Figtree', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+            margin-bottom: 20px;
+        }
+
+        .slide-4-heading {
+            font-family: 'Figtree', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.5px;
+            color: #fff;
+            margin-bottom: 24px;
+        }
+
+        .slide-4-body {
+            font-family: 'Figtree', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.75);
+        }
+
+        .slide-4-stat {
+            display: inline-block;
+            font-family: 'Figtree', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #fff;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 4px;
+            padding: 4px 10px;
+            margin-right: 8px;
+            margin-bottom: 20px;
+        }
+
+        /* ── Slide 5 — Finals Day ── */
+        .slide-5-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 66.666%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .slide-5-fade {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 75%;
+            height: 100%;
+            background: linear-gradient(to right, #000 40%, transparent 100%);
+            z-index: 1;
+        }
+
+        .slide-5-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 60px;
+        }
+
+        .slide-5-text {
+            max-width: 480px;
+        }
+
+        .slide-5-eyebrow {
+            font-family: 'Figtree', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+            margin-bottom: 20px;
+        }
+
+        .slide-5-heading {
+            font-family: 'Figtree', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.5px;
+            color: #fff;
+            margin-bottom: 24px;
+        }
+
+        .slide-5-body {
+            font-family: 'Figtree', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.75);
+        }
+
+        .slide-5-stat {
+            display: inline-block;
+            font-family: 'Figtree', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #fff;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 4px;
+            padding: 4px 10px;
+            margin-right: 8px;
+            margin-bottom: 20px;
+        }
+
+        /* ── Slide 6 — Antunes in Action ── */
+        .slide-6-video-wrap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 45%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .slide-6-video-wrap video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        .slide-6-fade {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 65%;
+            height: 100%;
+            background: linear-gradient(to right, transparent 0%, #000 100%);
+            z-index: 1;
+        }
+
+        .slide-6-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 60px;
+        }
+
+        .slide-6-text {
+            max-width: 480px;
+            text-align: left;
+        }
+
+        .slide-6-eyebrow {
+            font-family: 'Figtree', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+            margin-bottom: 20px;
+        }
+
+        .slide-6-heading {
+            font-family: 'Figtree', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.5px;
+            color: #fff;
+            margin-bottom: 24px;
+        }
+
+        .slide-6-body {
+            font-family: 'Figtree', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.75);
+        }
+
+        /* ── Slide 7 — Winner ── */
+        .slide-7-video-wrap {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 55%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .slide-7-video-wrap video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        .slide-7-fade {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 70%;
+            height: 100%;
+            background: linear-gradient(to left, transparent 0%, #000 100%);
+            z-index: 1;
+        }
+
+        .slide-7-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 60px;
+        }
+
+        .slide-7-text {
+            max-width: 500px;
+        }
+
+        .slide-7-eyebrow {
+            font-family: 'Figtree', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+            margin-bottom: 16px;
+        }
+
+        .slide-7-winner {
+            font-family: 'Figtree', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #d4a843;
+            margin-bottom: 12px;
+        }
+
+        .slide-7-heading {
+            font-family: 'Figtree', sans-serif;
+            font-size: 42px;
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -1px;
+            color: #fff;
+            margin-bottom: 28px;
+        }
+
+        .slide-7-body {
+            font-family: 'Figtree', sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.85;
+            color: rgba(255,255,255,0.72);
+        }
+
+        /* ── Slide 8 — Celebration ── */
+        .slide-8-video {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            z-index: 0;
+        }
+
+        .slide-8-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.45);
+            z-index: 1;
+        }
+
+        .slide-8-antunes {
+            position: absolute;
+            top: 22%;
+            left: 50%;
+            transform: translateX(-50%) translateZ(0);
+            z-index: 3;
+            height: 60px;
+            width: auto;
+            filter: brightness(0) invert(1);
+            opacity: 0.85;
+            will-change: transform;
+        }
+
+        .slide-8-center-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) translateZ(0);
+            z-index: 3;
+            text-align: center;
+            white-space: nowrap;
+            will-change: transform;
+        }
+
+        .slide-8-center-text p {
+            font-family: 'Figtree', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.67);
+            line-height: 1.6;
+        }
+
+        .slide-8-center-text .winner-name {
+            font-size: 56px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+
+        .slide-8-bkmglab {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%) translateZ(0);
+            z-index: 3;
+            height: 26px;
+            width: auto;
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
+            will-change: transform;
+        }
+
+        /* ── Navigation Dots ── */
+        #nav-dots {
+            position: fixed;
+            right: 28px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 300;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.35);
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .dot.active {
+            background: #fff;
+            transform: scale(1.4);
+        }
+
+        /* ── Slide Counter ── */
+        #slide-counter {
+            position: fixed;
+            bottom: 32px;
+            right: 40px;
+            z-index: 300;
+            font-family: 'Figtree', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        #slide-counter span {
+            color: #fff;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .header-inner {
+                padding: 14px 20px;
+            }
+
+            nav { gap: 20px; }
+            nav a { font-size: 12px; }
+
+            .slide-1-title,
+            .slide-1-subtitle {
+                font-size: 42px;
+                letter-spacing: -1px;
+            }
+
+            .slide-content { padding: 0 24px; }
+
+            #nav-dots { right: 14px; }
+            #slide-counter { right: 24px; bottom: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="navigation">
+        <div class="header-inner">
+            <!-- Replace with <img> once logo asset is ready -->
+            <a href="index.html" class="logo-text">bkmgLab</a>
+        </div>
+    </header>
+
+    <!-- Slide Wrapper -->
+    <div id="slide-wrapper">
+
+        <!-- Slide 1 — Hero Title -->
+        <div class="slide" data-index="0">
+            <!-- Swap src for your background image once ready, e.g. assets/hero.jpg -->
+            <div class="slide-overlay" style="background: rgba(0,0,0,0.65);"></div>
+            <div class="slide-content">
+                <p class="slide-1-eyebrow">Korea Burger Championship</p>
+                <h1 class="slide-1-title">KBC</h1>
+                <h2 class="slide-1-subtitle">Burger Championship</h2>
+                <p class="slide-1-desc">대한민국 최고의 버거를 찾아서<br>The Search for Korea's Greatest Burger</p>
+            </div>
+            <div class="slide-1-sponsor">
+                <img src="assets/antunes-logo.svg" alt="Antunes" class="slide-1-sponsor-logo">
+                <p class="slide-1-sponsor-label">Official Sponsor</p>
+            </div>
+        </div>
+
+        <!-- Slide 2 — Story -->
+        <div class="slide" data-index="1" style="background:#000;">
+            <img class="slide-2-bg" src="assets/slide2-bg.jpg" alt="Korea Burger Championship competition floor">
+            <div class="slide-2-fade"></div>
+            <div class="slide-2-content">
+                <div class="slide-2-text">
+                    <p class="slide-2-eyebrow">About the Championship</p>
+                    <h2 class="slide-2-heading">Korea's Search for the Best Burger</h2>
+                    <p class="slide-2-body">
+                        Every year, Samsung Welstory hosts a national competition to find the best burger-making team in all of Korea. The winner earns the right to represent Korea at the World Burger Championship in Indianapolis, October 15–18.<br><br>
+                        64 teams entered from across the country — kitchen staffs and owners of existing burger chains, all united by one dream: to have their burger crowned Korea's best.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3 — Sponsor -->
+        <div class="slide" data-index="2" style="background:#000;">
+            <img class="slide-3-bg" src="assets/slide3-bg.jpg" alt="Antunes grill at KBC event booth">
+            <div class="slide-3-fade"></div>
+            <div class="slide-3-content">
+                <div class="slide-3-text">
+                    <img class="slide-3-logo" src="assets/bkmglab-logo.png" alt="bkmgLab">
+                    <p class="slide-3-eyebrow">Official Sponsor</p>
+                    <h2 class="slide-3-heading">Powered by Antunes</h2>
+                    <p class="slide-3-body">
+                        bkmgLab, the official Antunes distributor in South Korea, proudly sponsored the Korea Burger Championship by awarding a brand new Antunes VCT-25 vertical contact toaster to the winning team — and offering a very special promotional price to all 64 teams that entered the tournament.<br><br>
+                        Four VCT-25 units were also put to work during the competition in a dedicated showcase, demonstrating the speed and precision that makes Antunes equipment a trusted name in professional kitchens worldwide.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4 — Tournament Format -->
+        <div class="slide" data-index="3" style="background:#000;">
+            <img class="slide-4-bg" src="assets/slide4-bg.jpg" alt="Teams cooking at the competition">
+            <div class="slide-4-fade"></div>
+            <div class="slide-4-content">
+                <div class="slide-4-text">
+                    <p class="slide-4-eyebrow">Tournament Format</p>
+                    <h2 class="slide-4-heading">How It Works</h2>
+                    <div>
+                        <span class="slide-4-stat">64 Teams</span>
+                        <span class="slide-4-stat">Day 1 → Top 8</span>
+                    </div>
+                    <p class="slide-4-body">
+                        All 64 teams enter Samsung Welstory's Kitchen Arena on the first day of the tournament, each bringing their best burger to the table. The arena fills with the energy of dozens of kitchens firing at once — every team fighting for their shot at the title.<br><br>
+                        A panel of judges tastes every entry and selects the 8 teams worthy of advancing to the semi-finals. Only the very best burgers make the cut.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5 — Finals Day -->
+        <div class="slide" data-index="4" style="background:#000;">
+            <img class="slide-5-bg" src="assets/slide5-bg.jpg" alt="Teams competing on finals day">
+            <div class="slide-5-fade"></div>
+            <div class="slide-5-content">
+                <div class="slide-5-text">
+                    <p class="slide-5-eyebrow">Day 2 — The Finals</p>
+                    <h2 class="slide-5-heading">The Road to the Final Four</h2>
+                    <div>
+                        <span class="slide-5-stat">8 Teams</span>
+                        <span class="slide-5-stat">Top 3 + Redemption</span>
+                    </div>
+                    <p class="slide-5-body">
+                        The 8 remaining teams return for Finals Day in an all-out free-for-all. Judges evaluate every burger once more — and only the top 3 teams earn a direct spot in the Final Four.<br><br>
+                        The other teams aren't finished yet. In a Redemption Round, they must produce 50 hamburgers for the crowd. VIP guests and onlookers get a taste and cast their votes — and the team that wins the crowd advances to claim the fourth and final spot.
+                    </p>
+                    <img src="assets/antunes-logo.svg" alt="Antunes" style="height:36px; width:auto; filter:brightness(0) invert(1); opacity:0.7; margin-top:28px; display:block;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6 — Antunes in Action -->
+        <div class="slide" data-index="5" style="background:#000;">
+            <div class="slide-6-video-wrap">
+                <video autoplay muted loop playsinline preload="auto">
+                    <source src="assets/slide6-video.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="slide-6-fade"></div>
+            <div class="slide-6-content">
+                <div class="slide-6-text">
+                    <p class="slide-6-eyebrow">Antunes VCT-25 in Action</p>
+                    <h2 class="slide-6-heading">200 Burgers.<br>90 Minutes.</h2>
+                    <p class="slide-6-body">
+                        To pull off 200 burgers in just 90 minutes, the four Redemption Round teams — each tasked with making 50 burgers — needed more than skill. They needed the power of Antunes.<br><br>
+                        The VCT-25 vertical contact toasters delivered bun after bun with the kind of speed and consistency that only professional-grade equipment can provide. Every toast perfectly even, every timing exactly repeatable — a live demonstration to every onlooker of what Antunes equipment can do under real competition pressure.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7 — Winner -->
+        <div class="slide" data-index="6" style="background:#000;">
+            <div class="slide-7-video-wrap">
+                <video autoplay muted loop playsinline preload="auto">
+                    <source src="assets/slide7-video.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="slide-7-fade"></div>
+            <div class="slide-7-content">
+                <div class="slide-7-text">
+                    <p class="slide-7-eyebrow">2026 Champions</p>
+                    <p class="slide-7-winner">🏆 Korea's Best Burger</p>
+                    <h2 class="slide-7-heading">Zesty Saloon</h2>
+                    <p class="slide-7-body">
+                        We were incredibly proud to present the Antunes VCT-25 to the winning team, Zesty Saloon — the best burger makers in Korea for 2026. This award was given in the true spirit of Antunes, a company deeply ingrained in hamburger history, working hand in hand with the world's greatest names — McDonald's, Burger King, Shake Shack, and beyond.<br><br>
+                        Among the 64 teams that entered, one may be destined to become the next world sensation. bkmgLab and Antunes are ready to stand beside them — and support their journey every step of the way.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8 — Celebration -->
+        <div class="slide" data-index="7" style="background:#000; isolation: isolate;">
+            <video class="slide-8-video" autoplay muted loop playsinline preload="auto">
+                <source src="assets/slide8-video.mp4" type="video/mp4">
+            </video>
+            <div class="slide-8-overlay"></div>
+            <img class="slide-8-antunes" src="assets/antunes-logo.svg" alt="Antunes">
+            <div class="slide-8-center-text">
+                <p>1st Place Team</p>
+                <p class="winner-name">Zesty Saloon</p>
+                <p>Congratulations</p>
+                <p style="font-style: italic; font-weight: 400; letter-spacing: 2px; margin-top: 8px;">Good luck in Indianapolis!</p>
+            </div>
+            <img class="slide-8-bkmglab" src="assets/bkmglab-logo.png" alt="bkmgLab">
+        </div>
+
+    </div>
+
+    <!-- Navigation Dots -->
+    <div id="nav-dots">
+        <div class="dot active" onclick="goTo(0)"></div>
+        <div class="dot" onclick="goTo(1)"></div>
+        <div class="dot" onclick="goTo(2)"></div>
+        <div class="dot" onclick="goTo(3)"></div>
+        <div class="dot" onclick="goTo(4)"></div>
+        <div class="dot" onclick="goTo(5)"></div>
+        <div class="dot" onclick="goTo(6)"></div>
+        <div class="dot" onclick="goTo(7)"></div>
+    </div>
+
+    <!-- Slide Counter -->
+    <div id="slide-counter">
+        <span id="current-slide">01</span> / 08
+    </div>
+
+    <script>
+        const slides = Array.from(document.querySelectorAll('.slide'));
+        const dots = Array.from(document.querySelectorAll('.dot'));
+        const currentSlideEl = document.getElementById('current-slide');
+        const total = slides.length; // auto-counts from DOM
+        let current = 0;
+        let isAnimating = false;
+
+        // Position all slides to their correct starting spots with no transition
+        function positionAll(activeIndex) {
+            slides.forEach((s, i) => {
+                s.style.transition = 'none';
+                if (i < activeIndex) {
+                    s.style.transform = 'translateY(-100%)';
+                } else if (i === activeIndex) {
+                    s.style.transform = 'translateY(0%)';
+                } else {
+                    s.style.transform = 'translateY(100%)';
+                }
+            });
+        }
+
+        function goTo(index) {
+            if (isAnimating || index === current) return;
+            if (index < 0 || index >= total) return;
+            isAnimating = true;
+
+            positionAll(current);
+            slides[index].getBoundingClientRect(); // force reflow
+
+            requestAnimationFrame(() => {
+                const easing = 'cubic-bezier(0.77, 0, 0.175, 1)';
+                slides[current].style.transition = `transform 0.9s ${easing}`;
+                slides[index].style.transition = `transform 0.9s ${easing}`;
+
+                slides[current].style.transform = index > current ? 'translateY(-100%)' : 'translateY(100%)';
+                slides[index].style.transform = 'translateY(0%)';
+
+                dots[current].classList.remove('active');
+                dots[index].classList.add('active');
+                currentSlideEl.textContent = String(index + 1).padStart(2, '0');
+
+                current = index;
+                // Force repaint on arrival to fix video/overlay compositing
+                setTimeout(() => {
+                    slides[index].style.willChange = 'auto';
+                    slides[index].getBoundingClientRect();
+                    slides[index].style.willChange = 'transform';
+                    isAnimating = false;
+                }, 950);
+            });
+        }
+
+        // Wheel navigation
+        let wheelCooldown = false;
+        window.addEventListener('wheel', (e) => {
+            if (isAnimating || wheelCooldown) return;
+            wheelCooldown = true;
+            setTimeout(() => { wheelCooldown = false; }, 200);
+
+            if (e.deltaY > 0) {
+                goTo(current + 1);
+            } else if (e.deltaY < 0) {
+                goTo(current - 1);
+            }
+        }, { passive: true });
+
+        // Touch/swipe navigation
+        let touchStartY = 0;
+        window.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        window.addEventListener('touchend', (e) => {
+            const delta = touchStartY - e.changedTouches[0].clientY;
+            if (Math.abs(delta) < 40) return;
+            if (delta > 0) {
+                goTo(current + 1);
+            } else {
+                goTo(current - 1);
+            }
+        }, { passive: true });
+
+        // Keyboard navigation
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === 'PageDown') goTo(current + 1);
+            if (e.key === 'ArrowUp' || e.key === 'PageUp') goTo(current - 1);
+        });
+
+        // Init
+        positionAll(0);
+    </script>
+
+</body>
+</html>
